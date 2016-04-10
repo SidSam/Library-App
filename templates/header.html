@@ -3,13 +3,13 @@
 		Madam Pince's Library
 	</div>
 	<div class="col-md-4 text-center allbooks">
-		<a href="{{url_for('books')}}">All Books</a>
+		<a href="{{url_for('books')}}" class="btn btn-default btn-sm">All Books</a>
 	</div>
-	<div class="col-md-8 text-right loginlink" style="padding-right: 35px; padding-top: 10px">
+	<div class="col-md-8 text-right loginlink" style="padding-right: 35px">
 		{%if 'username' not in session %}
-			<a href="{{url_for('showLogin')}}">Login </a>
+			<a href="{{url_for('showLogin')}}" class="btn btn-default btn-sm">Login </a>
 		{% else %}
-			<a href="{{url_for('disconnect')}}">Logout </a>
+			<a href="{{url_for('disconnect')}}" class="btn btn-default btn-sm">Logout </a>
 		{% endif %}
 	</div>
 </div>
