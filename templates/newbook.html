@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<link rel=stylesheet type=text/css href="{{url_for('static', filename='style.css')}}">
+	</head>
+	<body class="newbookbody">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 text-center">
+					<form name='newbookform' action='#' method='POST' class="newbookform">
+						<label for='name'>Name :</label>
+						<input type='text' name='name' class="form-control" placeholder="Enter the book's name">
+						<label for='author' >Author :</label>
+						<input type='text' name='author' class="form-control" placeholder="Enter the author's name">
+						<label for='picture'>Picture :</label>
+						<input type='text' name='picture' class="form-control" placeholder="Enter the URL of a photo">
+						<button type='submit' style="margin-top: 20px" class="btn btn-default">Add</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+</html>

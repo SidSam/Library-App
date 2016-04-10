@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<link rel=stylesheet type=text/css href="{{url_for('static', filename='style.css')}}">
+	</head>
+	<body class="checkinpagebody">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 text-center">
+					<form name='checkinform' action='#' method='POST' class="checkinform">
+						<p style="font-size:20px;margin-bottom:30px"><strong>Are you sure you want to check-in this book?</strong></p>
+						<p style="font-size:20px;margin-bottom:30px;">{{book.name}}</p>
+						<p style="font-size:15px;margin-bottom:30px;">{{book.author}}</p>
+						<img src="{{book.picture}}" class="img-responsive img-thumbnail center-block" style="margin-bottom: 30px">
+						<button type='submit' class='btn btn-default'>Check-in</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

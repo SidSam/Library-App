@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% include "header.html" %}
+<html lang="en">
+	<head>
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+		<link rel=stylesheet type=text/css href="{{url_for('static', filename='style.css')}}">
+	</head>
+	<body>
+		<div class = 'flash'>
+		    {% with messages = get_flashed_messages() %}
+	      		{% if messages %}
+	        		<ul>
+		        		{% for message in messages %}
+		            	<li> <strong> {{ message }} </strong> </li>
+		        		{% endfor %}
+	        		</ul>
+	        	{% endif %}
+    		{% endwith %}
+		</div>
+		<div class = 'text-center' style="margin-bottom: 20px"><a class='btn btn-default' href="{{url_for('newbook')}}">Add a book</a></div>
+		
+		<div class="container">
+			<div class="row">
+				{% for book in books %}
+					<div class="col-md-4 books text-center">
+						<img src="{{book.picture}}" class="img-responsive img-thumbnail center-block" style="margin-bottom: 10px">
+						<p class="text-center book-name">{{book.name}}</p>
+						<p class="text-center">{{book.author}}</p>
+						<a href="{{url_for('edit', book_id = book.id)}}" style="margin-right: 5px">Edit</a>
+						<a href="{{url_for('delete', book_id = book.id)}}" style="margin-right: 5px">Delete</a>
+						<a href="{{url_for('checkout', book_id = book.id)}}" style="margin-right: 5px">Checkout</a>
+						<a href="{{url_for('checkin', book_id = book.id)}}" style="margin-right: 5px">Check-in</a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</body>
+</html>

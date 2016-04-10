@@ -1,0 +1,91 @@
+p {
+	font-size: 15px;
+	font-family: Roboto;
+}
+
+.book-name {
+	font-size: 20px;
+}
+
+img {
+	overflow: hidden;
+	max-height: 220px;
+}
+
+.flash {
+	background-color: #98FB98;
+	width:100%;
+	text-decoration: none;
+
+}
+
+.flash li {
+	list-style-type: none;
+	text-align: center;
+
+}
+
+.top-menu {
+	height: 200px;
+	background: url(http://i.cbc.ca/1.1881477.1380774600!/httpImage/image.jpg_gen/derivatives/16x9_620/li-istock-library-books.jpg);
+	margin-bottom: 20px
+}
+
+.title {
+	font-size: 50px;
+	margin-bottom: 80px;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: white;
+}
+
+.books {
+	padding: 10px 10px 30px 10px;
+}
+
+.allbooks a, .loginlink a {
+	font-size: 24px;
+	color: black;
+}
+
+.loginpagebody, .checkoutpagebody, .checkinpagebody, .newbookbody, .editpagebody, .deletepagebody {
+	background: url(http://static1.squarespace.com/static/5576548ae4b02f4b87943018/t/55cdeffae4b0a4f80be7ef60/1439559679211/books+background+picture.jpg?format=1500w) no-repeat center center fixed;
+	width: 100%;
+	background-size: cover;
+}
+
+.loginbuttons {
+	position: absolute;
+	top: 50%;
+	left: 35%;
+}
+
+#signInButton {
+	float: left;
+	margin-right: 50px
+}
+
+#fblogin {
+	float: right;
+}
+
+.new-menu-item {
+	float: right;
+}
+
+#result {
+	margin-left: 30px;
+	margin-top: 30px;
+}
+
+.checkoutform, .checkinform, .newbookform, .editform, .deleteform {
+	margin-top: 50px;
+}
+
+/* #checkoutform {
+	border-width: 10px;
+	border-style: solid;
+}*/
+
+.newbookform input, .editform input {
+	margin-bottom: 10px;
+}

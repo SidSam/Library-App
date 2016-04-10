@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="//apis.google.com/js/platform.js?onload=start"> </script>
+    <link rel=stylesheet type=text/css href="{{url_for('static', filename='style.css')}}">
+  </head>
+  <body class="loginpagebody">
+    <div class="loginbuttons">
+      <div id="signInButton">
+        <!-- data-scope specifies what Google resources we want to access
+             data-redirecturi sets a post message and enables the one time use code flow
+             data-accesstype offline means the server can make requests to the Google API server even when the user is offline
+             data-cookiepolicy determines the scope of the URIs that can access the cookie. Single host origin means the website has a single host name, and no subdomains
+             data-callback specifies a callback function. If the user clicks and grants the application access to his profile, the callback method is called, and is given the one time use code, along with the access token
+             data-approvalprompt force means the user has to login each time he visits the login page
+      -->
+        <span class="g-signin"
+          data-scope="openid email"
+          data-clientid="780112999120-qj14ita7dju6prfl3o8bcv5f9to9uu2o.apps.googleusercontent.com"
+          data-redirecturi="postmessage"
+          data-accesstype="offline"
+          data-cookiepolicy="single_host_origin"
+          data-callback="signInCallback"
+          data-approvalprompt="force">
+        </span>
+      </div>
+      
+      <div id="fblogin">  
+        <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();" style="height:40px">
+          <a href='javascript:sendTokenToServer()'>Login with Facebook</a>
+        </fb:login-button> 
+      </div>
+    </div>
+
+    <div id = 'result'></div>
+    <script>
+      function signInCallback(authResult) {
+        if (authResult['code']) {
+          // Hide the sign-in button now that the user is authorized
+          $('#signInButton').attr('style', 'display:none');
+          $('#fblogin').attr('style', 'display:none');
+          // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main books page
+          $.ajax( {
+            type: 'POST',
+            url: '/gconnect?state={{STATE}}',
+            processData: false,
+            data: authResult['code'],
+            contentType: 'application/octet-stream; charset=utf-8',
+            success: function(result) {
+              // Handle or verify the server response if necessary.
+              if (result) {
+                $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+                setTimeout(function() {
+                window.location.href = "/books";
+                }, 4000); 
+              } 
+              else if (authResult['error']) {
+                console.log('There was an error: ' + authResult['error']);
+              } 
+              else {
+                $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+              }
+            }
+          }); 
+        } 
+      }
+    </script>
+
+    <script>
+    // This code will load and initialize the SDK
+    console.log("inside script")
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '1017541204973649',
+          cookie     : true, //enable cookies to allow the server to access the session
+          xfbml      : true, // parse social plugins on this page
+          version    : 'v2.5'
+        });
+      };
+
+      // Load the SDK asynchronously
+      (function(d, s, id) {
+        console.log("inside function")
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) return;
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+
+        function sendTokenToServer() {
+          console.log("inside sendTokenToServer")
+          var access_token = FB.getAuthResponse()['accessToken'];
+          console.log(access_token)
+          console.log('Welcome!  Fetching your information.... ');
+          FB.api('/me', function(response) {
+            console.log('Successful login for: ' + response.name);
+            // jQuery.support.cors = true;
+            $.ajax( {
+              type: 'POST',
+              url: '/fbconnect?state={{STATE}}',
+              processData: false,
+              data: access_token,
+              contentType: 'application/octet-stream; charset=utf-8',
+              success: function(result) {
+                // Handle or verify the server response if necessary.
+                if (result) {
+                  $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+                  setTimeout(function() {
+                    window.location.href = "/books";
+                  }, 4000);
+                  
+                } else {
+                    $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+                 }
+              }
+            });
+          });
+        }
+
+    </script>
+  </body>
+</html>

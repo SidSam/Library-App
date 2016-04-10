@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% include "header.html" %}
+<html lang="en">
+	<head>
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+		<link rel=stylesheet type=text/css href="{{url_for('static', filename='bootstrap.css')}}">
+		<link rel=stylesheet type=text/css href="{{url_for('static', filename='style.css')}}">
+	</head>
+	<body>
+		<div class = 'flash'>
+		    {% with messages = get_flashed_messages() %}
+	      		{% if messages %}
+	        		<ul>
+		        		{% for message in messages %}
+		            	<li> <strong> {{ message }} </strong> </li>
+		        		{% endfor %}
+	        		</ul>
+	        	{% endif %}
+    		{% endwith %}
+		</div>
+		<div class="container">
+			<div class="row">
+				{% for book in books %}
+					<div class="col-md-4 books">
+						<img src="{{book.picture}}" class="img-responsive img-thumbnail center-block"  style="top: 5px">
+						<p class="text-center book-name"  style="margin-top: 5px">{{book.name}}</p>
+						<p class="text-center">{{book.author}}</p>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</body>
+</html>
